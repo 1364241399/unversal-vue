@@ -5,11 +5,20 @@
 <script>
 export default {
 name:'LoginPage',
+
 data(){
-    return {}
+    return {
+      key:{
+        ss: 1134567890,
+        ts: 274,
+        df: 132
+      }
+    }
 },
-created (){
+created (){ 
     console.log('login page') 
+    console.log(!sessionStorage)
+    this.$alert('登陆页面','你已经登录了，不要再次登陆')
 }
 }
 
