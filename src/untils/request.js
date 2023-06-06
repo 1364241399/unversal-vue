@@ -106,6 +106,21 @@ service.interceptors.response.use(res =>{
     }else{
         return res.data; 	// 只有code为200的时候才有意义，主要是因为在传输层没有返回数据的情况下，一些类似于jqXHR的响应类型是没有数据的，这些情况下只能使用一种方式获取数据。
     }
-
+}, error =>{
+    console.log(error); 	// 执行执行error回调函数的错误处理程序。如果没有可用于此函数的error回调函数，则应显示错误消息。该函数应该在请求时返回
+    let { message } = error;
+    if( message == "Network Error"){
+        message = "后端接口连接异常"
+    }else if(message.includes("timeout")){
+        message = "系统接口异常超时"
+    }else if(message.includes("Request failed with status code")) {
+        message = "系统接口" + message.substr(message.length - 3) + "异常";
+      }
+      ElMessage({
+        message: message,
+        type: 'error',
+        duration: 5*1000
+      })
+    return Promise.reject(error)	// 如果没有可用于此函数的error回调函数，则应显示错误
 })
 export default service

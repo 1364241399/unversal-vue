@@ -5,10 +5,14 @@ import './permission' // 权限验证器 如果你的项目中有这么一个库
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css' 
 import {createStore}from "vuex"
+import {createMetaManager} from "vue-meta"
 
 const app = createApp(App)
+const store = createStore()
 
-    app.use(ElementPlus) 
-    app.use(router) // 使用路由器对象替换 vue 实例中的 router-view 和 el 属性。 这意味着可以在你的程序中使用 javascript 自带的方法来实现路由功能
-    app.use(createStore)
+const metaManager = createMetaManager()
+    app.use(store)
+    app.use(metaManager)
+    app.use(ElementPlus)  
+    app.use(router)
     app.mount('#app')
