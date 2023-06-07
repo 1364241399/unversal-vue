@@ -1,0 +1,11 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 1px;
+}
+html[data-theme=list] body {
+  background-color: "fff";
+}/*# sourceMappingURL=index.css.map */

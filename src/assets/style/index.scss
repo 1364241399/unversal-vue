@@ -1,0 +1,36 @@
+$themes: (
+  "light": (
+    "background": "fff",
+    "textColor": "000",
+  ),
+  "dark": (
+    "background": "#000",
+    "textColor": "#fff",
+  ),
+);
+
+html {
+  height: 100%;
+}
+$curTheme: light;
+@mixin useTheme() {
+  @each $key, $value in $themes {
+    $curTheme: $key !global;
+    html[data-theme="#{$key}"] & {
+      @content;
+    }
+  }
+}
+@function getVar($key) {
+  $themeMap: map-get($themes, $curTheme);
+  @debug "themeMap: $themeMap";
+  @return map-get($themeMap, $key);
+}
+body {
+  height: 100%;
+  margin: 1px;
+  @include useTheme {
+    background-color: getVar("background");
+    color: getVar("textColor");
+  }
+}
