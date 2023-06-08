@@ -1,7 +1,7 @@
 <template>
     <div class="common-layout">
         <el-container class="box">
-            <el-aside :ref="aside" :width="asideWidth" :class="{wait: isAside,narrow: !isAside}">Aside</el-aside>
+            <el-aside  :width="asideWidth" :class="{wait: isAside,narrow: !isAside}">Aside</el-aside>
             <el-container>
                 <el-header>Header
                     <el-button type="primary" @click="clickTest">测试用</el-button>
@@ -20,7 +20,7 @@ export default {
     name: 'DefaultLayout',
     data() {
         return {
-            isAside: false,
+            isAside: null,
             asideWidth: 200 + 'px'
         }
     },

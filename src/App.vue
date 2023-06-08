@@ -10,6 +10,10 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  created(){
+    let body = document.body
+    body.setAttribute('data-theme','dark')
   }
 }
 </script> 
