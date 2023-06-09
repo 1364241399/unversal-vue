@@ -12,8 +12,8 @@ export default {
     }
   },
   created(){
-    let body = document.body
-    body.setAttribute('data-theme','dark')
+    let html = document.documentElement
+    html.setAttribute('data-theme','light')
   }
 }
 </script> 
@@ -24,7 +24,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   width: 100%;
   height: 100%;
 }

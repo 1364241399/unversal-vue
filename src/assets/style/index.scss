@@ -1,11 +1,11 @@
 $themes: (
   "light": (
-    "background": "fff",
-    "textColor": "000",
+    "background": #fff,
+    "textColor": #2c3e50,
   ),
   "dark": (
-    "background": "#000",
-    "textColor": "#fff",
+    "background": #000,
+    "textColor": #fff,
   ),
 );
 
@@ -28,7 +28,7 @@ $curTheme: light;
 }
 body {
   height: 100%;
-  margin: 1px;
+  margin: 0px;
   @include useTheme {
     background-color: getVar("background");
     color: getVar("textColor");
