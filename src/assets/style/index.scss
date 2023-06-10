@@ -23,7 +23,6 @@ $curTheme: light;
 }
 @function getVar($key) {
   $themeMap: map-get($themes, $curTheme);
-  @debug "themeMap: $themeMap";
   @return map-get($themeMap, $key);
 }
 body {

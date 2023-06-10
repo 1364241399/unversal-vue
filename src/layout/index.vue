@@ -1,9 +1,10 @@
 <template>
     <div class="common-layout">
         <el-container class="box">
-            <el-aside  :class="{wait: isAside,narrow: !isAside}">Aside</el-aside>
+            <el-aside :class="{ wait: isAside, narrow: !isAside }">Aside</el-aside>
             <el-container>
                 <el-header>Header
+                    <LayoutHeader/>
                     <el-button type="primary" @click="clickTest">测试用</el-button>
                 </el-header>
                 <el-main>
@@ -16,40 +17,39 @@
 </template>
 
 <script>
+import {LayoutHeader} from './components'
 export default {
     name: 'DefaultLayout',
+    components:{
+        LayoutHeader
+    },
     data() {
         return {
             isAside: false,
+            Wide: 200 + 'px',
+            Narrow: 50 + 'px',
             asideWidth: 200 + 'px',
-            fromWidth: 200 + 'px',
-            toWidth: 200 + 'px',
+            fromWidth: '',
+            toWidth: '',
         }
     },
     created() {
-        console.info("sdf")
-        let localWidth = localStorage.getItem("asideWidth");
+
+        let localWidth = localStorage.getItem("localWidth");
         if (localWidth) {
             this.asideWidth = localWidth
         }
+        this.fromWidth = this.asideWidth
+        this.toWidth = this.asideWidth
 
     },
     methods: {
         clickTest() {
-            console.log(this.isAside)
             this.isAside = !this.isAside;
+            this.asideWidth = this.isAside ? this.Narrow : this.Wide
+            this.fromWidth = this.isAside ? this.Wide : this.Narrow
+            this.toWidth = this.isAside ? this.Narrow : this.Wide
 
-            if (this.isAside) {
-                this.asideWidth = 100 + 'px'
-                this.fromWidth = 200 + 'px'
-                this.toWidth = 100 + 'px'
-            } else {
-                this.asideWidth = 200 + 'px'
-                this.fromWidth = 100 + 'px'
-                this.toWidth = 200 + 'px'
-            }
-            console.log(this.fromWidth)
-            console.log(this.toWidth)
             let html = document.documentElement
             html.setAttribute('data-theme', this.isAside ? 'dark' : 'light')
         }
@@ -58,10 +58,6 @@ export default {
 
 </script>
 <style  lang="scss" scoped >
-:root{
-    --from-width:v-bind(fromWidth)
-    --to-width:v-bind(toWidth)
-}
 .common-layout {
     width: 100%;
     height: 100%;
@@ -78,14 +74,15 @@ export default {
     background-color: antiquewhite;
 }
 
-.s {
+.wait {
     animation-name: switch;
     animation-duration: 0.5s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 
 }
-.narrow{
+
+.narrow {
     animation-name: switchto;
     animation-duration: 0.5s;
     animation-iteration-count: 1;
@@ -95,11 +92,11 @@ export default {
 
 @keyframes switch {
     from {
-        width: var(--from-width);
+        width: v-bind(fromWidth);
     }
 
     to {
-        width: var(--to-width);
+        width: v-bind(toWidth);
     }
 }
 
@@ -112,17 +109,16 @@ export default {
         width: v-bind(toWidth);
     }
 }
-@media (min-width: 1000px) {
+
+@media (max-width: 1000px) {
     .wait {
-        --from-width: 200px;
-        --to-width: 50px
+        width: 50px;
     }
 }
 
 
-
-
 .el-header {
+    display: flex;
     height: 50px;
     background-color: aliceblue;
 }
@@ -130,4 +126,5 @@ export default {
 .el-main {
     height: calc(100% - 50px);
     background-color: aqua;
-}</style>
+}
+</style>
