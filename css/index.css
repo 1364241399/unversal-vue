@@ -5,6 +5,7 @@ html {
 body {
   height: 100%;
   margin: 0px;
+  opacity: 0.5;
 }
 html[data-theme=light] body {
   background-color: #fff;

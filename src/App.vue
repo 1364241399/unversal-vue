@@ -13,7 +13,11 @@ export default {
   },
   created(){
     let html = document.documentElement
-    html.setAttribute('data-theme','light')
+    let localAside = localStorage.getItem("localAside")
+    console.info(localAside)
+    const isAside = JSON.parse(localAside);
+    let aside = isAside ? 'dark' : 'light';
+    html.setAttribute('data-theme',aside)
   }
 }
 </script> 

@@ -11,6 +11,7 @@ $themes: (
 
 html {
   height: 100%;
+
 }
 $curTheme: light;
 @mixin useTheme() {
@@ -28,6 +29,7 @@ $curTheme: light;
 body {
   height: 100%;
   margin: 0px;
+  opacity:0.5;
   @include useTheme {
     background-color: getVar("background");
     color: getVar("textColor");

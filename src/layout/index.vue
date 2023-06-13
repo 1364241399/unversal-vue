@@ -36,8 +36,10 @@ export default {
     created() {
 
         let localWidth = localStorage.getItem("localWidth");
-        if (localWidth) {
+        let localAside = localStorage.getItem("localAside")
+        if (localWidth||localAside) {
             this.asideWidth = localWidth
+            this.isAside = JSON.parse(localAside)
         }
         this.fromWidth = this.asideWidth
         this.toWidth = this.asideWidth
@@ -45,11 +47,14 @@ export default {
     },
     methods: {
         clickTest() {
-            this.isAside = !this.isAside;
+            console.info(this.isAside,typeof(this.isAside),1)
+            this.isAside =  !this.isAside;
+            console.info(this.isAside,typeof(this.isAside),2)
             this.asideWidth = this.isAside ? this.Narrow : this.Wide
             this.fromWidth = this.isAside ? this.Wide : this.Narrow
             this.toWidth = this.isAside ? this.Narrow : this.Wide
-
+            localStorage.setItem("localWidth",this.asideWidth)
+            localStorage.setItem("localAside",this.isAside)
             let html = document.documentElement
             html.setAttribute('data-theme', this.isAside ? 'dark' : 'light')
         }
