@@ -4,7 +4,7 @@
             <el-aside :class="{ wait: isAside, narrow: !isAside }">Aside</el-aside>
             <el-container>
                 <el-header>Header
-                    <LayoutHeader/>
+                    <LayoutHeader />
                     <el-button type="primary" @click="clickTest">测试用</el-button>
                 </el-header>
                 <el-main>
@@ -16,53 +16,33 @@
     </div>
 </template>
 
-<script>
-import {LayoutHeader} from './components'
+<script setup>
+import { LayoutHeader } from './components'
 import setting from '@/store'
-export default {
-    name: 'DefaultLayout',
-    components:{
-        LayoutHeader
-    },
-    data() {
-        return {
-            isAside: setting.isAside,
-            Wide: 200 + 'px',
-            Narrow: 50 + 'px',
-            asideWidth: 200 + 'px',
-            fromWidth: '',
-            toWidth: '',
-        }
-    },
-    created() {
+import { computed, ref } from 'vue'
+const Wide = 200 + 'px'
+const Narrow = 50 + 'px'
+const isAside = ref(0)
+const asideWidth = computed(()=>localStorage.getItem("localWidth"))
+const fromWidth = computed(()=>localStorage.getItem("localWidth"))
+const toWidth = computed(()=>localStorage.getItem("localWidth"))
 
-        let localWidth = localStorage.getItem("localWidth");
-        if (localWidth) {
-            this.asideWidth = localWidth
-            
-        }
-        this.fromWidth = this.asideWidth
-        this.toWidth = this.asideWidth
-
-    },
-    methods: {
-        clickTest() {
-            console.info(this.isAside,typeof(this.isAside),1)
-            
-
-            setting.isAside = !this.isAside
-            console.info(this.isAside,typeof(this.isAside),2)
+isAside.value = setting.isAside
 
 
-            this.asideWidth = this.isAside ? this.Narrow : this.Wide
-            this.fromWidth = this.isAside ? this.Wide : this.Narrow
-            this.toWidth = this.isAside ? this.Narrow : this.Wide
-            localStorage.setItem("localWidth",this.asideWidth)
-            localStorage.setItem("localAside",this.isAside)
-            let html = document.documentElement
-            html.setAttribute('data-theme', this.isAside ? 'dark' : 'light')
-        }
-    }
+function clickTest() {
+    console.info(setting.isAside,isAside,1)
+    isAside.value = !isAside.value
+    console.info(setting.isAside,isAside,2)
+
+    asideWidth.value = isAside.value ? Narrow : Wide
+    fromWidth.value = isAside.value ? Wide : Narrow
+    toWidth.value = isAside.value ? Narrow : Wide
+    
+    localStorage.setItem("localWidth", asideWidth.value)
+    localStorage.setItem("localAside", isAside.value)
+    let html = document.documentElement
+    html.setAttribute('data-theme', isAside.value ? 'dark' : 'light')
 }
 
 </script>

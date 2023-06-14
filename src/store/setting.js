@@ -15,7 +15,7 @@ let stateAside = JSON.parse(localAside) || false;
 // const getter={
     
 // };
-
+console.info(stateAside,'setting')
 const setting = {
     isAside:stateAside
 }
