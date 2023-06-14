@@ -12,31 +12,19 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'hHamburger',
-  data() {
-    return {
-      isAside:true,
-      angle: 0+'deg'
-    }
-  },
-  created(){
-    let localAside=localStorage.getItem('localAside')
-    if(localAside){
-      this.isAside = JSON.parse(localAside)
-    }
-    this.angle= this.isAside?180+'deg':0+'deg'
-  },
-  methods:{
-    spark(){
-      this.isAside=!this.isAside
-      this.angle= this.isAside?0+'deg':180+'deg'
-    }
-  }
-}
+<script setup>
+import setting from '@/store'
+import { ref,watch } from 'vue';
+const isAside  = ref(setting.isAside);
+const angle = isAside.value?180+'deg':0+'deg';
+
+watch(isAside,()=>{
+  isAside.value = !isAside.value;
+  angle.value = isAside.value?180+'deg':0+'deg'
+})
 
 </script>
+
 <style  lang="scss" scoped>
 @property --x {
   syntax: '<length>';

@@ -5,11 +5,10 @@ import './permission' // 权限验证器 使用该功能在页面加载时就绪
 import '@/assets/style/index.scss' // 全局样式
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css' 
-import {createStore}from "vuex"
+import store from "./store"
 import {createMetaManager} from "vue-meta"
 
 const app = createApp(App)
-const store = createStore()
 
 const metaManager = createMetaManager()
     app.use(store)

@@ -14,7 +14,9 @@ export default {
   created(){
     let html = document.documentElement
     let localAside = localStorage.getItem("localAside")
-    console.info(localAside)
+    if(localAside == 'undefined'){
+      localAside = false
+    }
     const isAside = JSON.parse(localAside);
     let aside = isAside ? 'dark' : 'light';
     html.setAttribute('data-theme',aside)
