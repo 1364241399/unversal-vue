@@ -1,6 +1,7 @@
-localStorage.setItem("localAside",false)
+import { reactive } from 'vue'
 
 let localAside = localStorage.getItem("localAside");
+console.info(localAside)
 if(localAside){
     if(localAside == 'undefined'){
         localAside = false
@@ -12,12 +13,11 @@ if(localAside){
 
 let stateAside = JSON.parse(localAside) || false;
 
-// const getter={
-    
-// };
+
+
 console.info(stateAside,'setting')
-const setting = {
+const setting = reactive({
     isAside:stateAside
-}
+})
 
 export default setting;

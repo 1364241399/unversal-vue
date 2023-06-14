@@ -1,6 +1,5 @@
 <template>
   <div class="hamburger">
-    <div class="ball"></div>
     <div class="icon" @click="spark">
       <svg t="1686554967484" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
         p-id="1543" width="30" height="30">
@@ -13,15 +12,18 @@
 </template>
 
 <script setup>
-import setting from '@/store'
-import { ref,watch } from 'vue';
-const isAside  = ref(setting.isAside);
-const angle = isAside.value?180+'deg':0+'deg';
+import store from '@/store'
+import { watch, ref, computed} from 'vue';
+const isAside = computed(() => store.setting.isAside);
+const angle = ref(isAside.value ? 180 + 'deg' : 0 + 'deg');
 
-watch(isAside,()=>{
-  isAside.value = !isAside.value;
-  angle.value = isAside.value?180+'deg':0+'deg'
+watch(() => isAside.value, (newValue) => {
+  angle.value = newValue ? 180 + 'deg' : 0 + 'deg'
 })
+function spark() {
+  store.setting.isAside = !isAside.value
+  localStorage.setItem("localAside", isAside.value)
+}
 
 </script>
 
@@ -42,7 +44,6 @@ watch(isAside,()=>{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 300px;
 
 }
 
@@ -72,13 +73,14 @@ watch(isAside,()=>{
 
 .icon {
   svg {
-    --r:v-bind(angle);
+    --r: v-bind(angle);
     transform-origin: center;
     transform: rotate(var(--r));
+    transition: 1s;
   }
+
   svg:hover {
     cursor: pointer;
   }
 }
-
 </style>

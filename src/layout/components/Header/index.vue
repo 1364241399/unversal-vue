@@ -1,7 +1,6 @@
 <template>
   <div class="header">
     <hHamburger/>
-    33
   </div>
 </template>
 

@@ -12,14 +12,14 @@ export default {
     }
   },
   created(){
-    let html = document.documentElement
-    let localAside = localStorage.getItem("localAside")
-    if(localAside == 'undefined'){
-      localAside = false
-    }
-    const isAside = JSON.parse(localAside);
-    let aside = isAside ? 'dark' : 'light';
-    html.setAttribute('data-theme',aside)
+    // let html = document.documentElement
+    // let localAside = localStorage.getItem("localAside")
+    // if(localAside == 'undefined'){
+    //   localAside = false
+    // }
+    // const isAside = JSON.parse(localAside);
+    // let aside = isAside ? 'dark' : 'light';
+    // html.setAttribute('data-theme',aside)
   }
 }
 </script> 
