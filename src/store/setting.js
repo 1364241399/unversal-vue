@@ -17,7 +17,8 @@ let stateAside = JSON.parse(localAside) || false;
 
 console.info(stateAside,'setting')
 const setting = reactive({
-    isAside:stateAside
+    isAside:stateAside,
+    drawer:false
 })
 
 export default setting;

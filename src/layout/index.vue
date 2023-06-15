@@ -1,8 +1,13 @@
 <template>
     <div class="common-layout">
         <el-container class="box">
-            <el-aside id="asideData">
-                <LayoutAside/>
+            <el-aside width="auto"  >
+                <div id="asideData" class="asideDiv" :style="`display:${display}`">
+                    <LayoutAside />
+                </div>
+                <el-drawer v-model="drawer" direction="ltr" :with-header="false" :before-close="closeDrawer" >
+                    <LayoutAside />
+                </el-drawer>
             </el-aside>
             <el-container>
                 <el-header>
@@ -18,21 +23,21 @@
 </template>
 
 <script setup>
-import { LayoutHeader,LayoutAside } from './components'
+import { LayoutHeader, LayoutAside } from './components'
 import store from '@/store'
-import { computed,watch} from 'vue'
+import { computed } from 'vue'
+import setting from '@/store/setting'
 
 const Wide = 200 + 'px'
 const Narrow = 50 + 'px'
-const isAside =computed(()=> store.setting.isAside)
+const isAside = computed(() => store.setting.isAside)
+const drawer = computed(()=>store.setting.drawer)
+const asideWidth = computed(() => isAside.value ? Narrow : Wide)
+const display =computed(()=>drawer.value?'none':'')
 
-const asideWidth = computed(()=> isAside.value ? Narrow : Wide)
-
-
-watch(()=>asideWidth.value,(newValue,oldValue)=>{
-    console.log(newValue,1)
-    console.log(oldValue,2)
-})
+function closeDrawer(){
+    setting.drawer = false
+}
 
 </script>
 <style  lang="scss" scoped >
@@ -46,15 +51,15 @@ watch(()=>asideWidth.value,(newValue,oldValue)=>{
     height: 100%;
 }
 
-.el-aside {
+.asideDiv {
     height: 100%;
     width: v-bind(asideWidth);
     background-color: antiquewhite;
-    transition:1s;
+    transition: 1s;
 }
 
 @media (max-width: 500px) {
-    .el-aside {
+    .asideDiv {
         width: 0px;
     }
 }

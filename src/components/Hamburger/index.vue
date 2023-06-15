@@ -1,4 +1,7 @@
 <template>
+  <div>
+
+  </div>
   <div class="hamburger">
     <div class="icon" @click="spark">
       <svg t="1686554967484" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -8,39 +11,39 @@
           p-id="1544"></path>
       </svg>
     </div>
+
   </div>
 </template>
 
 <script setup>
 import store from '@/store'
-import { watch, ref, computed, onMounted ,onUnmounted} from 'vue';
+import { watch, ref, computed } from 'vue';
+
 const isAside = computed(() => store.setting.isAside);
 const angle = ref(isAside.value ? 180 + 'deg' : 0 + 'deg');
-const width = computed(()=>{
-
-  
-  return 0;
-})
+const drawer = computed(()=>store.setting.drawer)
 
 
-
-console.log(width.value)
-onMounted(()=>{
-  
-  let width = window.getComputedStyle(document.getElementById("asideData")).width
-  console.log(width)
-  watch.value = watch
-   
-})
-onUnmounted(()=>{})
 watch(() => isAside.value, (newValue) => {
   angle.value = newValue ? 180 + 'deg' : 0 + 'deg'
 })
+
+watch(() => drawer.value, (newValue) => {
+  angle.value = newValue ? 0 + 'deg' : -180 + 'deg'
+})
+
+
 function spark() {
-  store.setting.isAside = !isAside.value
-  localStorage.setItem("localAside", isAside.value)
-  
+  let width = window.getComputedStyle(document.getElementById("asideData")).width
+  if (width == '0px') { 
+    store.setting.drawer = !drawer.value
+  } else {
+    store.setting.isAside = !isAside.value
+    localStorage.setItem("localAside", isAside.value)
+  }
+
 }
+
 
 </script>
 
