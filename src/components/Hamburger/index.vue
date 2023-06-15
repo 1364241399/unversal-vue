@@ -13,16 +13,33 @@
 
 <script setup>
 import store from '@/store'
-import { watch, ref, computed} from 'vue';
+import { watch, ref, computed, onMounted ,onUnmounted} from 'vue';
 const isAside = computed(() => store.setting.isAside);
 const angle = ref(isAside.value ? 180 + 'deg' : 0 + 'deg');
+const width = computed(()=>{
 
+  
+  return 0;
+})
+
+
+
+console.log(width.value)
+onMounted(()=>{
+  
+  let width = window.getComputedStyle(document.getElementById("asideData")).width
+  console.log(width)
+  watch.value = watch
+   
+})
+onUnmounted(()=>{})
 watch(() => isAside.value, (newValue) => {
   angle.value = newValue ? 180 + 'deg' : 0 + 'deg'
 })
 function spark() {
   store.setting.isAside = !isAside.value
   localStorage.setItem("localAside", isAside.value)
+  
 }
 
 </script>

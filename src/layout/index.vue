@@ -1,13 +1,12 @@
 <template>
     <div class="common-layout">
         <el-container class="box">
-            <el-aside >
+            <el-aside id="asideData">
                 <LayoutAside/>
             </el-aside>
             <el-container>
                 <el-header>
                     <LayoutHeader />
-                    <el-button type="primary" @click="clickTest">测试用</el-button>
                 </el-header>
                 <el-main>
                     Main0
@@ -21,7 +20,7 @@
 <script setup>
 import { LayoutHeader,LayoutAside } from './components'
 import store from '@/store'
-import { computed} from 'vue'
+import { computed,watch} from 'vue'
 
 const Wide = 200 + 'px'
 const Narrow = 50 + 'px'
@@ -30,13 +29,10 @@ const isAside =computed(()=> store.setting.isAside)
 const asideWidth = computed(()=> isAside.value ? Narrow : Wide)
 
 
-function clickTest() {
-
-    store.setting.isAside = !isAside.value
-
-    localStorage.setItem("localAside", isAside.value)
-
-}
+watch(()=>asideWidth.value,(newValue,oldValue)=>{
+    console.log(newValue,1)
+    console.log(oldValue,2)
+})
 
 </script>
 <style  lang="scss" scoped >
@@ -57,9 +53,9 @@ function clickTest() {
     transition:1s;
 }
 
-@media (max-width: 1000px) {
-    .wait {
-        width: 50px;
+@media (max-width: 500px) {
+    .el-aside {
+        width: 0px;
     }
 }
 
