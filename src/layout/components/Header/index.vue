@@ -4,14 +4,17 @@
       <hHamburger />
     </div>
     <div class="right">
-      <el-dropdown>
-        <div>
-          退出
-          <el-avatar :size="60" src="https://empty" @error="errorHandler">
-            <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
-          </el-avatar>
+      <el-dropdown trigger="hover">
+        <div class="s">
+          <el-avatar :size="40" src="http://localhost:81/static/img/profile.473f5971.jpg" />
         </div>
-        <el-dropdown-menu>退出</el-dropdown-menu>
+        <template #dropdown>   
+          <el-dropdown-menu>
+            <el-dropdown-item>个人中心</el-dropdown-item>
+            <el-dropdown-item>布局设置</el-dropdown-item>
+            <el-dropdown-item>退出</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
       </el-dropdown>
     </div>
   </div>
@@ -43,4 +46,8 @@ export default {
   display: flex;
   flex-direction: row;
 }
+.el-dropdown:hover{
+  cursor: pointer;
+}
+
 </style>
