@@ -13,12 +13,12 @@ if(localAside){
 
 let stateAside = JSON.parse(localAside) || false;
 
-
+let stateDrawer = false
 
 console.info(stateAside,'setting')
 const setting = reactive({
     isAside:stateAside,
-    drawer:false
+    drawer:stateDrawer
 })
 
 export default setting;
