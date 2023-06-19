@@ -3,7 +3,7 @@
     <div class="sidebar-header">
       <div class="sidebar-header-logo"><img :src="logoImg" alt="logo" >
       </div>
-      <div class="sidebar-header-title" v-show="!store.setting.isAside" :class="{title: isAside}">标题标题标题</div>
+      <div class="sidebar-header-title" v-show="!store.setting.isAside" :class="{title: !isAside}">标题标题标题</div>
     </div>
           <!-- background-color="#faebd7" -->
     <el-menu 
@@ -52,14 +52,14 @@ const color = ref("#faebd7")
   align-items: center;
 }
 .title{
-  animation: xianshi 10s;
+  animation: xianshi var(--time);
 }
 @keyframes xianshi{
   from{
     width: 0px;
   }
   to{
-    width: 100px;
+    width: 100%;
   }
 }
 img{
@@ -69,7 +69,6 @@ img{
 }
 .el-menu{
   border-right: solid 1px var(--asideBackgroundColor);
-  transition-delay: 0ms;
 }
 .el-menu-item{
   justify-content: center;
