@@ -52,9 +52,16 @@ const color = ref("#faebd7")
   align-items: center;
 }
 .title{
-  
+  animation: xianshi 10s;
 }
-
+@keyframes xianshi{
+  from{
+    width: 0px;
+  }
+  to{
+    width: 100px;
+  }
+}
 img{
   height: 30px;
   width: 30px;
