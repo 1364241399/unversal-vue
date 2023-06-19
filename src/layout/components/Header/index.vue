@@ -4,7 +4,7 @@
       <hHamburger />
     </div>
     <div class="right">
-      <el-dropdown trigger="hover">
+      <el-dropdown trigger="click">
         <div class="s">
           <el-avatar :size="40" src="http://localhost:81/static/img/profile.473f5971.jpg" />
         </div>

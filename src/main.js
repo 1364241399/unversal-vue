@@ -5,6 +5,7 @@ import './permission' // 权限验证器 使用该功能在页面加载时就绪
 import '@/assets/style/index.scss' // 全局样式
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css' 
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 import {createMetaManager} from "vue-meta"
 
@@ -14,6 +15,9 @@ const metaManager = createMetaManager()
     app.use(metaManager)
     app.use(ElementPlus)  
     app.use(router)
+    for (const [key,component] of Object.entries(ElementPlusIconsVue)) {
+        app.component(key,component)
+    }
     app.mount('#app')
 
 // console.info(store.setting.isAside)

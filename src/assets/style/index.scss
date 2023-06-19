@@ -8,6 +8,10 @@ $themes: (
     "textColor": #fff,
   ),
 );
+:root{
+  --time : 0.5s;
+  --asideBackgroundColor: #faebd7
+}
 
 html {
   height: 100%;

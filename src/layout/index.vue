@@ -67,6 +67,7 @@ onUnmounted(()=>{
 
 </script>
 <style  lang="scss" scoped >
+
 .common-layout {
     width: 100%;
     height: 100%;
@@ -81,7 +82,7 @@ onUnmounted(()=>{
     height: 100%;
     width: v-bind(asideWidth);
     background-color: antiquewhite;
-    transition: 1s;
+    transition-duration: var(--time);
 }
 
 @media (max-width: 500px) {

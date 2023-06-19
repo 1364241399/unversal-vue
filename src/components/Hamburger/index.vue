@@ -96,7 +96,7 @@ function spark() {
     --r: v-bind(angle);
     transform-origin: center;
     transform: rotate(var(--r));
-    transition: 1s;
+    transition: var(--time);
   }
 
   svg:hover {
