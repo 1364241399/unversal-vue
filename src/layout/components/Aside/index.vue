@@ -52,6 +52,7 @@ const color = ref("#faebd7")
   align-items: center;
 }
 .title{
+  --time: 2s
   animation: xianshi var(--time);
 }
 @keyframes xianshi{
