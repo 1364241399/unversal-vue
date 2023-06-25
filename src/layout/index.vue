@@ -31,7 +31,7 @@ import store from '@/store'
 import { computed,onMounted,onUnmounted} from 'vue'
 
 const Wide = 200 + 'px'
-const Narrow = 50 + 'px'
+const Narrow = 70 + 'px'
 const isAside = computed(() => store.setting.isAside)
 const drawer = computed({
     get(){
@@ -72,7 +72,10 @@ onUnmounted(()=>{
     width: 100%;
     height: 100%;
 }
-
+.el-aside{
+    overflow-x: hidden;
+    border-right: solid 1px #111111;
+}
 .box {
 
     height: 100%;
