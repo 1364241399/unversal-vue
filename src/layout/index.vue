@@ -9,7 +9,9 @@
                 v-model="drawer" 
                 direction="ltr" 
                 :with-header="false" 
-                :before-close="closeDrawer">
+                :size="store.setting.Wide"
+                :before-close="closeDrawer"
+                >
                     <LayoutAside />
                 </el-drawer>
             </el-aside>
@@ -28,10 +30,9 @@
 <script setup>
 import { LayoutHeader, LayoutAside } from './components'
 import store from '@/store'
+import {getRouters} from '@/api/menu'
 import { computed,onMounted,onUnmounted} from 'vue'
 
-const Wide = 200 + 'px'
-const Narrow = 70 + 'px'
 const isAside = computed(() => store.setting.isAside)
 const drawer = computed({
     get(){
@@ -41,19 +42,29 @@ const drawer = computed({
         store.setting.drawer =value
     }
 })
-const asideWidth = computed(() => isAside.value ? Narrow : Wide)
+const asideWidth = computed(() => isAside.value ? store.setting.Narrow : store.setting.Wide)
 
 
 const mediaQuery = "(max-width:500px)"
+
+// const a = computed(() =>{
+//     let match = window.matchMedia(mediaQuery).matches;
+//     return match
+// })
+getRouters().then(res =>{
+    console.log(res)
+});
+//窗口宽度改变
 function checkMediaQuery(){
     const match = window.matchMedia(mediaQuery).matches;
     if(match){
+        store.setting.isAside=store.setting.bus
         store.setting.drawer = false
     }
 }
 
 function closeDrawer() {
-
+    store.setting.isAside=store.setting.bus
     store.setting.drawer = false
 }
 onMounted(()=>{
@@ -66,7 +77,7 @@ onUnmounted(()=>{
 })
 
 </script>
-<style  lang="scss" scoped >
+<style  lang="scss" >
 
 .common-layout {
     width: 100%;
@@ -93,6 +104,9 @@ onUnmounted(()=>{
       
         width: 0px;
     }
+}
+.el-drawer__body{
+    --el-drawer-padding-primary:0px;
 }
 
 .el-header {

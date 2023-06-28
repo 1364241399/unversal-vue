@@ -14,11 +14,15 @@ if(localAside){
 let stateAside = JSON.parse(localAside) || false;
 
 let stateDrawer = false
+let asideState = false
 
 console.info(stateAside,'setting')
 const setting = reactive({
     isAside:stateAside,
-    drawer:stateDrawer
+    drawer:stateDrawer,
+    bus: asideState,
+    Wide: 200+'px',
+    Narrow: 70 + 'px'
 })
 
 export default setting;

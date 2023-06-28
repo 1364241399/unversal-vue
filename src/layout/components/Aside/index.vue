@@ -6,29 +6,28 @@
       <div class="sidebar-header-title" :class="{ title: isAside }">标题标题标题</div>
     </div>
     <!-- background-color="#faebd7" -->
-    <el-menu mode="vertical" :collapse="isAside" :background-color="color" text-color="#ff0ff0"
-      collapse-transition="true">
-      <el-sub-menu  expand-open-icon="el-icon-location" expand-close-icon="el-icon-location">
+    <el-menu mode="vertical" :collapse="isAside" :background-color="colors" text-color="#ff0ff0"
+    collapse-transition @open="ssd" @close="ssd">
+      <el-sub-menu  index="144"> 
         <template #title >
-            <el-icon color="#409EFC">
-              <House />
-            </el-icon>
+          <el-icon><Check /></el-icon>
+  
             <span>236</span>
         </template>
-        <el-menu-item-group>111</el-menu-item-group>
+        <span>15452</span>
       </el-sub-menu>
-      <el-menu-item index="index">
-        <el-icon color="#409EFC">
+      <el-menu-item index="11">
+        <el-icon >
           <House />
         </el-icon>
       </el-menu-item>
-      <el-menu-item index="22"><el-icon color="#409EFC">
+      <el-menu-item index="22"><el-icon >
           <House />
         </el-icon></el-menu-item>
-      <el-menu-item index="33"><el-icon color="#409EFC">
+      <el-menu-item index="33"><el-icon >
           <House />
         </el-icon></el-menu-item>
-      <el-menu-item index="44"><el-icon color="#409EFC">
+      <el-menu-item index="44"><el-icon >
           <House />
         </el-icon></el-menu-item>
     </el-menu>
@@ -40,14 +39,23 @@
 import { computed, ref } from 'vue'
 import store from '@/store'
 import logoImg from '@/assets/logo.png'
-const Wide = 200 + 'px'
-const Narrow = 70 + 'px'
-const isAside = computed(() => store.setting.isAside)
-const color = ref("#faebd7")
-const asideWidth = computed(() => isAside.value ? Narrow : Wide)
+
+const isAside = computed(() => {
+  return store.setting.isAside
+})
+const colors = ref("#faebd7")
+
+const asideWidth = computed(() => isAside.value ? store.setting.Narrow : store.setting.Wide)
+
+function ssd(s){
+  console.log(s)
+}
 
 </script>
 <style  lang="scss" scoped>
+.sidebar-box{
+  overflow-x: hidden;
+}
 .sidebar-header {
   height: 50px;
   display: flex;
@@ -94,5 +102,8 @@ img {
   display: flex;
   justify-content: left;
   align-items: center;
+}
+.el-icon{
+  color:#409EFC
 }
 </style>

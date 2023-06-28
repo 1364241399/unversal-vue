@@ -1,7 +1,4 @@
 <template>
-  <div>
-
-  </div>
   <div class="hamburger">
     <div class="icon" @click="spark">
       <svg t="1686554967484" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +20,6 @@ const isAside = computed(() => store.setting.isAside);
 const angle = ref(isAside.value ? 180 + 'deg' : 0 + 'deg');
 const drawer = computed(()=>store.setting.drawer)
 
-
 watch(() => isAside.value, (newValue) => {
   angle.value = newValue ? 180 + 'deg' : 0 + 'deg'
 })
@@ -37,6 +33,8 @@ function spark() {
   let width = window.getComputedStyle(document.getElementById("asideData")).width
   if (width == '0px') { 
     store.setting.drawer = !drawer.value
+    store.setting.bus = isAside.value
+    store.setting.isAside = false
   } else {
     store.setting.isAside = !isAside.value
     localStorage.setItem("localAside", isAside.value)
