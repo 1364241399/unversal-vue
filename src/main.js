@@ -12,8 +12,8 @@ import {createMetaManager} from "vue-meta"
 const app = createApp(App)
 
 const metaManager = createMetaManager()
-    app.use(metaManager)
     app.use(ElementPlus)  
+    app.use(metaManager)
     app.use(router)
     for (const [key,component] of Object.entries(ElementPlusIconsVue)) {
         app.component(key,component)

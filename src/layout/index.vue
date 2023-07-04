@@ -2,16 +2,11 @@
     <div class="common-layout">
         <el-container class="box">
             <el-aside width="auto">
-                <div id="asideData" class="asideDiv" >
+                <div id="asideData" class="asideDiv">
                     <LayoutAside />
                 </div>
-                <el-drawer 
-                v-model="drawer" 
-                direction="ltr" 
-                :with-header="false" 
-                :size="store.setting.Wide"
-                :before-close="closeDrawer"
-                >
+                <el-drawer v-model="drawer" direction="ltr" :with-header="false" :size="store.setting.Wide"
+                    :before-close="closeDrawer">
                     <LayoutAside />
                 </el-drawer>
             </el-aside>
@@ -30,16 +25,15 @@
 <script setup>
 import { LayoutHeader, LayoutAside } from './components'
 import store from '@/store'
-import {getRouters} from '@/api/menu'
-import { computed,onMounted,onUnmounted} from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 
 const isAside = computed(() => store.setting.isAside)
 const drawer = computed({
-    get(){
+    get() {
         return store.setting.drawer
     },
-    set(value){
-        store.setting.drawer =value
+    set(value) {
+        store.setting.drawer = value
     }
 })
 const asideWidth = computed(() => isAside.value ? store.setting.Narrow : store.setting.Wide)
@@ -51,42 +45,44 @@ const mediaQuery = "(max-width:500px)"
 //     let match = window.matchMedia(mediaQuery).matches;
 //     return match
 // })
-getRouters().then(res =>{
-    console.log(res)
-});
+
 //窗口宽度改变
-function checkMediaQuery(){
+function checkMediaQuery() {
     const match = window.matchMedia(mediaQuery).matches;
-    if(match){
-        store.setting.isAside=store.setting.bus
+    if (match) {
+
+        store.setting.isAside = store.setting.bus
+
         store.setting.drawer = false
     }
 }
 
 function closeDrawer() {
-    store.setting.isAside=store.setting.bus
+    store.setting.isAside = store.setting.bus
+    
     store.setting.drawer = false
 }
-onMounted(()=>{
+onMounted(() => {
     // 监听 resize 方法
     window.addEventListener('resize', checkMediaQuery)
 })
-onUnmounted(()=>{
+onUnmounted(() => {
     // 移除 resize 方法
     window.removeEventListener('resize', checkMediaQuery)
 })
 
 </script>
 <style  lang="scss" >
-
 .common-layout {
     width: 100%;
     height: 100%;
 }
-.el-aside{
+
+.el-aside {
     overflow-x: hidden;
     border-right: solid 1px #111111;
 }
+
 .box {
 
     height: 100%;
@@ -101,12 +97,13 @@ onUnmounted(()=>{
 
 @media (max-width: 500px) {
     .asideDiv {
-      
+
         width: 0px;
     }
 }
-.el-drawer__body{
-    --el-drawer-padding-primary:0px;
+
+.el-drawer__body {
+    --el-drawer-padding-primary: 0px;
 }
 
 .el-header {

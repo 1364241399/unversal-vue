@@ -31,14 +31,17 @@ watch(() => drawer.value, (newValue) => {
 
 function spark() {
   let width = window.getComputedStyle(document.getElementById("asideData")).width
+  console.info(isAside.value,"修改前数据")
   if (width == '0px') { 
-    store.setting.drawer = !drawer.value
     store.setting.bus = isAside.value
+    store.setting.drawer = !drawer.value
     store.setting.isAside = false
+    localStorage.setItem("localAside", store.setting.bus)
   } else {
     store.setting.isAside = !isAside.value
     localStorage.setItem("localAside", isAside.value)
   }
+  console.info(isAside.value,"修改后数据")
 
 }
 
