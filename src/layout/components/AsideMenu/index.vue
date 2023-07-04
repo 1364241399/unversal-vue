@@ -11,8 +11,7 @@
         >
         <template #title >
             <el-icon><location /></el-icon>
-            <span >{{  props.data.menuName}}</span>
-            <!-- <span>sss</span> -->
+            <span v-if="!(store.setting.isAside && props.collapsed)">{{  props.data.menuName}}</span>
         </template>
         <AsideMenu v-for="item in props.data.children"
         :key="item" :data="item" />
@@ -32,7 +31,7 @@ import { defineProps } from "vue";
 import store from '@/store/index'
 import AsideMenu from "@/layout/components/AsideMenu"
 
-const props = defineProps({data:Object})
+const props = defineProps({data:Object,collapsed:Boolean})
 
 
 </script>

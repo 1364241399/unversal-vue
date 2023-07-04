@@ -13,7 +13,7 @@
       text-color="#ff0ff0" 
       collapse-transition 
      >
-      <AsideMenu v-for="(item,index) in tree" :key="index" :data="item" />
+      <AsideMenu v-for="(item,index) in tree" :key="index" :data="item" :collapsed="true"/>
     </el-menu>
 
   </div>
