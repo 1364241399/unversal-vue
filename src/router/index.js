@@ -27,7 +27,13 @@ const routes = [
     name: "登陆",
     component: () => import("@/view/login.vue"),
   },
+  {
+    path:"/:pathMatch(.*)*",
+    component: () => import("@/view/error.vue")
+  },
 ];
+
+export const dynamicRoutes=[]
 
 const router = createRouter({
   history: createWebHistory(),

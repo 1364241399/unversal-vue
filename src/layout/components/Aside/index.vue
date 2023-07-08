@@ -11,9 +11,13 @@
       :collapse="isAside" 
       :background-color="colors" 
       text-color="#ff0ff0" 
-      collapse-transition 
-     >
-      <AsideMenu v-for="(item,index) in tree" :key="index" :data="item" :collapsed="true"/>
+      :default-active="active"
+      collapse-transition
+      router
+      @open="dsa"
+      @close="dsa"
+      >
+      <AsideMenu v-for="(item, index) in tree" :key="index" :data="item" :collapsed="true" />
     </el-menu>
 
   </div>
@@ -23,8 +27,10 @@
 import { computed, ref } from 'vue'
 import store from '@/store'
 import logoImg from '@/assets/logo.png'
+
 import { getRouters } from '@/api/menu'
 import AsideMenu from '@/layout/components/AsideMenu'
+import { useRouter } from 'vue-router'
 
 const isAside = computed(() => {
   return store.setting.isAside
@@ -33,22 +39,62 @@ const colors = ref("#faebd7")
 
 const asideWidth = computed(() => isAside.value ? store.setting.Narrow : store.setting.Wide)
 
+const active = computed(() => store.roles.index)
+
 const tree = ref({})
-
-
+const router = useRouter()
 getRouters().then(res => {
-    console.log(res)
-    tree.value= res.data.children
-    console.info(JSON.stringify(tree.value))
-    
+  tree.value = res.data.children
+  const dyr = treerouter(tree.value)
+  const routes = router.getRoutes();
+  let route;
+  for(const a of routes){
+    if(a.name == "home"){
+      route = a;
+    }
+  }
+  if(route){
+    for(const r of dyr){
+      route.children.push(r) 
+    }
+  }
+  store.roles.routes = route
 
+  router.addRoute(route)
+ 
 });
+function dsa(t){
+  console.info(t)
+}
+
+function treerouter(data) {
+  if (!data || !Array.isArray(data)) return null;
+  var dyr = []
+
+  for (const item of data) {
+    if (item.menuName) {
+      const route = {
+        name: item.path.charAt(0).toUpperCase()+item.path.slice(1),
+        path: item.path,
+        component: item.component == null||item.component=="" ? null : ()=>import("@/view/" + item.component+'.vue')
+      }
+      
+      if (item.children) {
+        route.children = treerouter(item.children)
+      }
+      dyr.push(route)
+    }
+
+  }
+  return dyr
+}
 
 </script>
 <style  lang="scss" scoped>
-.sidebar-box{
+.sidebar-box {
   overflow-x: hidden;
 }
+
 .sidebar-header {
   height: 50px;
   display: flex;
@@ -83,7 +129,7 @@ img {
 }
 
 .el-menu {
-  --width:v-bind(asideWidth);
+  --width: v-bind(asideWidth);
   border-right: 0px;
   display: flex;
   flex-direction: column;
@@ -96,7 +142,8 @@ img {
   justify-content: left;
   align-items: center;
 }
-.el-icon{
-  color:#409EFC
+
+.el-icon {
+  color: #409EFC
 }
 </style>

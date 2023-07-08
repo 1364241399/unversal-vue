@@ -1,5 +1,5 @@
 <template>
-  <div>index
+  <div>index页面
   </div>
 </template>
 

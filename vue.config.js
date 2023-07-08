@@ -1,5 +1,4 @@
-
-module.exports = ({
+module.exports = {
   transpileDependencies: true,
   lintOnSave:false,
   devServer:{
@@ -13,5 +12,12 @@ module.exports = ({
         }
       } 
     }
-  }
-})
+  },
+  // configureWebpack: {
+  //   resolve: {
+  //     alias: {
+  //       '@': '/src'
+  //     }
+  //   }
+  // }
+}
